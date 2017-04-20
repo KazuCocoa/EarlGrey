@@ -363,7 +363,9 @@ module EarlGrey
     #
     # @param [Xcodeproj::Project] project
     # @param [PBXNativeTarget] target
-    def copy_swift_files(project, target, swift_version = nil)
+    def copy_swift_files(project, target, swift_version = nil, skip_copy_swift_files = true)
+      return if skip_copy_swift_files
+
       return unless has_swift?(target) || !swift_version.to_s.empty?
       project_test_targets = project.main_group.children
       test_target_group = project_test_targets.find { |g| g.display_name == target.name }
